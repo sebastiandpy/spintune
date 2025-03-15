@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base colors */
+    --background: 27 35% 9%;
+    --foreground: 24 33% 97%;
+
+    /* Primary colors */
+    --primary: 36 57% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary colors */
+    --secondary: 18 57% 32%;
+    --secondary-foreground: 0 0% 98%;
+
+    /* Border, inputs, etc. */
+    --border: 36 57% 55%;
+    --input: 18 57% 32%;
+    --ring: 36 57% 55%;
+
+    /* Card styles */
+    --card: 27 30% 20%;
+    --card-foreground: 0 0% 98%;
+
+    /* Popover/dropdown styles */
+    --popover: 27 30% 20%;
+    --popover-foreground: 0 0% 98%;
+
+    /* Muted UI */
+    --muted: 27 20% 15%;
+    --muted-foreground: 0 0% 70%;
+
+    /* Accent UI */
+    --accent: 15 80% 30%;
+    --accent-foreground: 0 0% 98%;
+
+    /* Destructive UI */
+    --destructive: 0 84% 30%;
+    --destructive-foreground: 0 0% 98%;
+
+    /* Chart colors */
+    --chart-1: 36 57% 55%;
+    --chart-2: 15 80% 30%;
+    --chart-3: 18 57% 32%;
+    --chart-4: 27 30% 20%;
+    --chart-5: 10 40% 20%;
+
+    /* Border radius */
+    --radius: 0.5rem;
+    
+    /* Sidebar colors */
+    --sidebar-background: 27 30% 15%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 36 57% 55%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 15 80% 30%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 36 57% 55%;
+    --sidebar-ring: 36 57% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background-color: #231709;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='600' viewBox='0 0 100 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 600V0c50 0 50 50 100 50V600c-50 0-50-50-100-50z' fill='%238c1c13' fill-opacity='0.6'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-position: center;
+    background-size: 100px 600px;
+  }
+  
+  /* Custom colors */
+  .bg-brown {
+    background-color: #3c2415;
+  }
+  
+  .bg-brown-light {
+    background-color: #6e4c36;
+  }
+  
+  .bg-red-curtain {
+    background-color: #8c1c13;
+  }
+  
+  .bg-red-bright {
+    background-color: #c01f1d;
+  }
+  
+  .text-gold {
+    color: #d2a04a;
+  }
+  
+  .text-cream {
+    color: #f2e9e4;
+  }
+  
+  .border-gold {
+    border-color: #d2a04a;
+  }
+  
+  /* Vinyl styling */
+  .vinyl-record {
+    background: radial-gradient(circle, #171717 0%, #0d0a0b 50%, #171717 100%);
+  }
+  
+  .vinyl-grooves {
+    background-image: repeating-radial-gradient(circle, rgba(255,255,255,0.05) 0px, rgba(0,0,0,0) 4px, rgba(255,255,255,0.05) 8px);
+  }
+  
+  .vinyl-label {
+    background: radial-gradient(circle, #d2a04a 0%, #c69136 100%);
+  }
+  
+  .record-shine {
+    background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%);
+  }
+  
+  /* Progress bar */
+  .progress-bar {
+    background: linear-gradient(to right, rgba(210, 160, 74, 0.8) 0%, rgba(210, 160, 74, 0.3) 100%);
+  }
+  
+  /* Font family utility classes */
+  .font-logo {
+    font-family: 'Abril Fatface', cursive;
+  }
+  
+  .font-display {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .font-sans {
+    font-family: 'Poppins', sans-serif;
+  }
+}
