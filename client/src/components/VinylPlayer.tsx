@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion } from "framer-motion";
+import { ArrowLeft, Disc, Play, Pause, SkipBack, SkipForward, Music, Info, Volume2 } from "lucide-react";
 import { albums } from "@/data/albums";
 import Turntable from "@/components/ui/turntable";
 
@@ -146,9 +147,9 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
   
   return (
     <div className="vinyl-player-container max-w-5xl mx-auto">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center mb-6">
         <button 
-          className="flex items-center gap-2 text-gold hover:text-cream transition-colors"
+          className="flex items-center gap-2 text-gold hover:text-cream transition-colors px-3 py-2 rounded-lg hover:bg-brown-light hover:bg-opacity-30"
           onClick={() => {
             if (audioRef.current) {
               audioRef.current.pause();
@@ -156,23 +157,33 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
             navigate('/');
           }}
         >
-          <i className="ri-arrow-left-line text-xl"></i>
+          <ArrowLeft size={20} />
           <span className="font-display">Back to albums</span>
         </button>
         
         <div className="album-info text-center">
-          <h2 className="font-display text-3xl text-gold">{album.title}</h2>
-          <p className="text-xl text-cream text-opacity-80">{album.artist}</p>
+          <h2 className="font-display text-3xl text-gold mb-1">{album.title}</h2>
+          <div className="flex items-center justify-center gap-2 text-cream text-opacity-80">
+            <Disc size={16} className="text-gold" />
+            <p className="text-xl">{album.artist}</p>
+            <Disc size={16} className="text-gold" />
+          </div>
         </div>
         
-        <div className="w-24">
+        <div className="w-28">
           {/* Empty div for spacing */}
         </div>
       </div>
       
       {/* Album Description */}
-      <div className="album-description bg-brown bg-opacity-40 rounded-lg p-4 mb-8 text-center">
-        <p className="text-cream text-opacity-90 italic">{album.description}</p>
+      <div className="album-description bg-brown bg-opacity-40 rounded-lg p-5 mb-8 text-center border border-gold border-opacity-10"
+        style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)" }}
+      >
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <Info size={16} className="text-gold" />
+          <h3 className="font-display text-lg text-gold">About this album</h3>
+        </div>
+        <p className="text-cream text-opacity-90 italic leading-relaxed">{album.description}</p>
       </div>
       
       <div className="player-section flex flex-col lg:flex-row gap-8">
