@@ -18,7 +18,7 @@ export const albums: Album[] = [
     id: 1,
     title: 'SOUR (2021)',
     artist: 'Olivia Rodrigo',
-    imageUrl: '/attached_assets/SOUR (2021).png',
+    imageUrl: './attached_assets/SOUR (2021).png',
     description: 'Sour is the debut studio album by American singer-songwriter Olivia Rodrigo. Released on May 21, 2021, by Geffen Records, the album was written by Rodrigo and producer Dan Nigro. Originally planned as an EP, Sour was expanded into a full-length album following the viral success of her debut single, "Drivers License".',
     tracks: [
       { id: 1, title: 'brutal', duration: '2:23' },
@@ -38,7 +38,7 @@ export const albums: Album[] = [
     id: 2,
     title: 'Rosie (2024)',
     artist: 'Rosé',
-    imageUrl: '/attached_assets/Rosie (2024) - Rosé.png',
+    imageUrl: './attached_assets/Rosie (2024) - Rosé.png',
     description: 'Rosie is the highly anticipated debut solo studio album by New Zealand-born South Korean singer Rosé. Released in 2024, the album showcases her versatile vocal range and features the hit single "number one girl" which blends pop and R&B elements with personal and introspective lyrics reflecting her journey as an artist.',
     tracks: [
       { id: 1, title: 'number one girl', duration: '3:12' },
@@ -57,7 +57,7 @@ export const albums: Album[] = [
     id: 3,
     title: 'Evermore (2020)',
     artist: 'Taylor Swift',
-    imageUrl: '/attached_assets/Evermore (2020) - Taylor Swift.jpg',
+    imageUrl: './attached_assets/Evermore (2020) - Taylor Swift.jpg',
     description: 'Evermore is the ninth studio album by American singer-songwriter Taylor Swift. It was surprise-released on December 11, 2020, by Republic Records, less than five months after her previous studio album Folklore. The album is a continuation of the indie folk and alternative rock styles established on Folklore, with Swift describing it as a "sister record".',
     tracks: [
       { id: 1, title: 'willow', duration: '3:34' },
@@ -81,7 +81,7 @@ export const albums: Album[] = [
     id: 4,
     title: 'Tanong (2023)',
     artist: 'Maki',
-    imageUrl: '/attached_assets/Tanong (2023) - Maki.jpg',
+    imageUrl: './attached_assets/Tanong (2023) - Maki.jpg',
     description: 'Tanong is the breakout EP by Filipino alternative/city pop singer-songwriter Maki, featuring his viral hit "Sigurado." Through smooth melodies and heartfelt lyrics, Maki explores themes of uncertainty, longing, and emotional vulnerability. His distinctive voice and authentic songwriting have resonated with listeners throughout the Philippines and beyond, establishing him as an emerging voice in modern Filipino music.',
     tracks: [
       { id: 1, title: 'Sigurado', duration: '3:12' },

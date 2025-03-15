@@ -39,12 +39,17 @@ export default function VinylRecord({ isPlaying, labelImageUrl }: VinylRecordPro
       </div>
       
       {/* Album artwork mini */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[25%] h-[25%] rounded-full overflow-hidden border-2 border-gold border-opacity-20 shadow-lg">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[35%] h-[35%] rounded-full overflow-hidden border-3 border-gold border-opacity-30 shadow-xl">
         <img 
           src={labelImageUrl} 
-          alt="Album mini" 
+          alt="Album Label" 
           className="w-full h-full object-cover"
+          onError={(e) => {
+            console.error("Error loading image:", labelImageUrl);
+            e.currentTarget.src = "./assets/record-label-fallback.svg";
+          }}
         />
+        <div className="absolute inset-0 bg-black bg-opacity-10"></div>
       </div>
     </motion.div>
   );
