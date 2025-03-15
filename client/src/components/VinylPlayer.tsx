@@ -147,9 +147,9 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
   
   return (
     <div className="vinyl-player-container max-w-5xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center mb-8">
         <button 
-          className="flex items-center gap-2 text-gold hover:text-cream transition-colors px-3 py-2 rounded-lg hover:bg-brown-light hover:bg-opacity-30"
+          className="flex items-center gap-2 text-gold hover:text-cream transition-colors px-4 py-2 rounded-lg hover:bg-brown-light hover:bg-opacity-50 border border-gold border-opacity-20"
           onClick={() => {
             if (audioRef.current) {
               audioRef.current.pause();
@@ -162,11 +162,13 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
         </button>
         
         <div className="album-info text-center">
-          <h2 className="font-display text-3xl text-gold mb-1">{album.title}</h2>
-          <div className="flex items-center justify-center gap-2 text-cream text-opacity-80">
-            <Disc size={16} className="text-gold" />
-            <p className="text-xl">{album.artist}</p>
-            <Disc size={16} className="text-gold" />
+          <h2 className="font-display text-4xl text-gold mb-2">{album.title}</h2>
+          <div className="flex items-center justify-center gap-3 text-cream">
+            <div className="h-px w-12 bg-gold opacity-40"></div>
+            <Disc size={18} className="text-gold" />
+            <p className="text-xl font-medium">{album.artist}</p>
+            <Disc size={18} className="text-gold" />
+            <div className="h-px w-12 bg-gold opacity-40"></div>
           </div>
         </div>
         
@@ -175,24 +177,26 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
         </div>
       </div>
       
-      {/* Album Description */}
-      <div className="album-description bg-brown bg-opacity-40 rounded-lg p-5 mb-8 text-center border border-gold border-opacity-10"
-        style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)" }}
-      >
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <Info size={16} className="text-gold" />
-          <h3 className="font-display text-lg text-gold">About this album</h3>
-        </div>
-        <p className="text-cream text-opacity-90 italic leading-relaxed">{album.description}</p>
-      </div>
-      
       <div className="player-section flex flex-col lg:flex-row gap-8">
-        {/* Vinyl Record Display */}
-        <div className="vinyl-container relative flex-1 flex justify-center items-center">
-          <Turntable album={album} isPlaying={isPlaying} />
+        {/* Left Column - Vinyl Record Display and Album Description */}
+        <div className="vinyl-section flex flex-col flex-1">
+          {/* Vinyl Record Turntable */}
+          <div className="vinyl-container relative flex justify-center items-center p-4 mb-6">
+            <div className="absolute inset-0 bg-brown-dark bg-opacity-30 rounded-xl shadow-inner"></div>
+            <Turntable album={album} isPlaying={isPlaying} />
+          </div>
+          
+          {/* Album Description - Positioned directly under the turntable */}
+          <div className="album-description bg-brown bg-opacity-50 rounded-xl p-6 border border-gold border-opacity-10 shadow-lg mt-2">
+            <div className="flex items-center gap-3 mb-4 border-b border-gold border-opacity-20 pb-3">
+              <Info size={20} className="text-gold" />
+              <h3 className="font-display text-xl text-gold">About this album</h3>
+            </div>
+            <p className="text-cream text-opacity-90 font-serif leading-relaxed">{album.description}</p>
+          </div>
         </div>
         
-        {/* Track List and Controls */}
+        {/* Right Column - Track List and Controls */}
         <div className="controls-container flex-1">
           <div className="album-cover-display mb-6 w-full max-w-xs mx-auto">
             <img 
