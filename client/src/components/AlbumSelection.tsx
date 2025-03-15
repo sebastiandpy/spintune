@@ -41,9 +41,24 @@ export default function AlbumSelection() {
               >
                 <img 
                   src={album.imageUrl} 
-                  alt={`${album.title} Album Cover`} 
+                  alt={`${album.title} by ${album.artist}`} 
                   className="w-full h-full object-cover" 
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${album.imageUrl}`);
+                    // Add fallback styling to make error visible but elegant
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                    target.parentElement?.classList.add('album-image-error');
+                  }}
+                  loading="eager" // Prioritize loading album covers
                 />
+                
+                {/* Fallback content for image errors */}
+                <div className="hidden album-image-error flex-col justify-center items-center h-full bg-brown-dark bg-opacity-70 p-3 text-center">
+                  <Disc size={30} className="text-gold mb-2 opacity-80" />
+                  <h4 className="text-gold text-sm font-medium">{album.title}</h4>
+                  <p className="text-cream text-xs">{album.artist}</p>
+                </div>
                 
                 {/* Grunge/Vinyl Texture Overlay */}
                 <div className="absolute inset-0 bg-black bg-opacity-5 pointer-events-none mix-blend-overlay"

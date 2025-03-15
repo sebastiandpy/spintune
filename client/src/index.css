@@ -157,4 +157,15 @@
   .animate-spin-slow {
     animation: spin-slow 3s linear infinite;
   }
+  
+  /* Error handling for album image displays */
+  .album-image-error, .vinyl-label-fallback {
+    display: flex !important;
+  }
+  
+  /* Fix for public asset path loading */
+  img[src^="./"] {
+    object-position: center;
+    object-fit: cover;
+  }
 }

@@ -46,9 +46,15 @@ export default function VinylRecord({ isPlaying, labelImageUrl }: VinylRecordPro
           className="w-full h-full object-cover"
           onError={(e) => {
             console.error("Error loading image:", labelImageUrl);
-            e.currentTarget.src = "./assets/record-label-fallback.svg";
+            // Instead of using a fallback image that may not exist, style the container
+            const target = e.currentTarget;
+            target.style.display = 'none';
+            target.parentElement?.classList.add('vinyl-label-fallback');
           }}
         />
+        <div className="hidden vinyl-label-fallback absolute inset-0 flex items-center justify-center bg-brown-dark">
+          <div className="text-gold text-xs font-display uppercase tracking-widest">Album</div>
+        </div>
         <div className="absolute inset-0 bg-black bg-opacity-10"></div>
       </div>
     </motion.div>

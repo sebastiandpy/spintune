@@ -34,16 +34,16 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
     
     // Map the correct audio file based on album and track
     if (album.id === 1 && currentTrack.id === 1) {
-      audioPath = '/attached_assets/Olivia Rodrigo - brutal.mp3';
+      audioPath = './attached_assets/Olivia Rodrigo - brutal.mp3';
       hasAudio = true;
     } else if (album.id === 2 && currentTrack.id === 1) {
-      audioPath = '/attached_assets/ROSÉ - number one girl.mp3';
+      audioPath = './attached_assets/ROSÉ - number one girl.mp3';
       hasAudio = true;
     } else if (album.id === 3 && currentTrack.id === 1) {
-      audioPath = '/attached_assets/Taylor Swift - willow.mp3';
+      audioPath = './attached_assets/Taylor Swift - willow.mp3';
       hasAudio = true;
     } else if (album.id === 4 && currentTrack.id === 1) {
-      audioPath = '/attached_assets/Maki - Sigurado.mp3';
+      audioPath = './attached_assets/Maki - Sigurado.mp3';
       hasAudio = true;
     }
     
