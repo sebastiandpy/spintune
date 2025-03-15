@@ -24,10 +24,32 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
   }
   
   const currentTrack = album.tracks[currentTrackIndex];
+  const [showNotice, setShowNotice] = useState(false);
   
   useEffect(() => {
-    // Create audio element
-    audioRef.current = new Audio(`/audio/${album.id}/${currentTrack.id}.mp3`);
+    // Create audio element based on the album and track
+    let audioPath = '';
+    let hasAudio = false;
+    
+    // Map the correct audio file based on album and track
+    if (album.id === 1 && currentTrack.id === 1) {
+      audioPath = '/attached_assets/Olivia Rodrigo - brutal.mp3';
+      hasAudio = true;
+    } else if (album.id === 2 && currentTrack.id === 1) {
+      audioPath = '/attached_assets/ROSÉ - number one girl.mp3';
+      hasAudio = true;
+    } else if (album.id === 3 && currentTrack.id === 1) {
+      audioPath = '/attached_assets/Taylor Swift - willow.mp3';
+      hasAudio = true;
+    } else if (album.id === 4 && currentTrack.id === 1) {
+      audioPath = '/attached_assets/Maki - Sigurado.mp3';
+      hasAudio = true;
+    }
+    
+    // Show notice for tracks without actual audio files
+    setShowNotice(!hasAudio && currentTrackIndex > 0);
+    
+    audioRef.current = new Audio(audioPath);
     
     // Set up event listeners
     audioRef.current.addEventListener('ended', handleTrackEnd);
@@ -124,7 +146,7 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
   
   return (
     <div className="vinyl-player-container max-w-5xl mx-auto">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-4">
         <button 
           className="flex items-center gap-2 text-gold hover:text-cream transition-colors"
           onClick={() => {
@@ -148,6 +170,11 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
         </div>
       </div>
       
+      {/* Album Description */}
+      <div className="album-description bg-brown bg-opacity-40 rounded-lg p-4 mb-8 text-center">
+        <p className="text-cream text-opacity-90 italic">{album.description}</p>
+      </div>
+      
       <div className="player-section flex flex-col lg:flex-row gap-8">
         {/* Vinyl Record Display */}
         <div className="vinyl-container relative flex-1 flex justify-center items-center">
@@ -168,6 +195,15 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
           <div className="current-track-info mb-4 text-center">
             <h3 className="font-display text-2xl text-gold">{currentTrack.title}</h3>
             <p className="text-cream text-opacity-80">{currentTrack.duration}</p>
+            
+            {showNotice && (
+              <div className="mt-2 p-2 bg-brown-light bg-opacity-50 rounded-md">
+                <p className="text-cream text-sm">
+                  <i className="ri-information-line mr-1"></i>
+                  Only the first track of each album has audio available for demonstration.
+                </p>
+              </div>
+            )}
           </div>
           
           {/* Progress Bar */}

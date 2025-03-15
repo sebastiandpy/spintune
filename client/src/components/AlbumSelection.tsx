@@ -24,8 +24,14 @@ export default function AlbumSelection() {
                   alt={`${album.title} Album Cover`} 
                   className="w-full h-full object-cover" 
                 />
-                <div className="album-overlay absolute inset-0 bg-black bg-opacity-40 opacity-0 hover:opacity-100 flex items-center justify-center transition-opacity duration-300">
-                  <p className="text-white font-display text-xl">Play record?</p>
+                <div className="album-overlay absolute inset-0 bg-black bg-opacity-60 opacity-0 hover:opacity-100 flex flex-col items-center justify-center transition-opacity duration-300 p-4">
+                  <p className="text-white font-display text-xl mb-2">Play record?</p>
+                  <p className="text-white text-sm text-center opacity-80">
+                    {album.description.length > 100 
+                      ? album.description.substring(0, 100) + '...'
+                      : album.description
+                    }
+                  </p>
                 </div>
               </div>
               <h3 className="font-display text-xl text-center">{album.title}</h3>
