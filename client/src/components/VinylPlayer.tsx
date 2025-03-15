@@ -204,13 +204,19 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
           
           {/* Current Track Display */}
           <div className="current-track-info mb-4 text-center">
-            <h3 className="font-display text-2xl text-gold">{currentTrack.title}</h3>
-            <p className="text-cream text-opacity-80">{currentTrack.duration}</p>
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <Music size={18} className="text-gold" />
+              <h3 className="font-display text-2xl text-gold">{currentTrack.title}</h3>
+            </div>
+            <div className="flex items-center justify-center gap-2 text-cream text-opacity-80">
+              <Volume2 size={14} className="opacity-70" />
+              <p>{currentTrack.duration}</p>
+            </div>
             
             {showNotice && (
-              <div className="mt-2 p-2 bg-brown-light bg-opacity-50 rounded-md">
-                <p className="text-cream text-sm">
-                  <i className="ri-information-line mr-1"></i>
+              <div className="mt-3 p-3 bg-brown-light bg-opacity-50 rounded-md border border-gold border-opacity-20">
+                <p className="text-cream text-sm flex items-center justify-center gap-2">
+                  <Info size={14} className="text-gold" />
                   Only the first track of each album has audio available for demonstration.
                 </p>
               </div>
@@ -218,64 +224,96 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
           </div>
           
           {/* Progress Bar */}
-          <div className="progress-container mb-6 w-full bg-brown-light rounded-full h-2 overflow-hidden">
-            <div 
-              className="progress-bar h-full"
-              style={{ width: `${progress}%` }}
-            ></div>
+          <div className="progress-container mb-6 px-2">
+            <div className="w-full bg-brown-light bg-opacity-60 rounded-full h-2 overflow-hidden shadow-inner">
+              <div 
+                className="progress-bar h-full"
+                style={{ 
+                  width: `${progress}%`,
+                  boxShadow: "0 0 10px rgba(210, 160, 74, 0.3)" 
+                }}
+              ></div>
+            </div>
+            <div className="flex justify-between mt-1 text-xs text-cream text-opacity-60 px-1">
+              <span>0:00</span>
+              <span>{currentTrack.duration}</span>
+            </div>
           </div>
           
           {/* Player Controls */}
-          <div className="player-controls flex justify-center items-center gap-6 mb-8">
-            <button 
+          <div className="player-controls flex justify-center items-center gap-8 mb-8">
+            <motion.button 
               className="text-gold hover:text-cream transition-colors"
               onClick={previousTrack}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <i className="ri-skip-back-fill text-3xl"></i>
-            </button>
+              <SkipBack size={30} />
+            </motion.button>
             
-            <button 
-              className="w-16 h-16 rounded-full bg-red-curtain hover:bg-red-bright flex items-center justify-center transition-colors shadow-lg"
+            <motion.button 
+              className="w-16 h-16 rounded-full bg-red-curtain hover:bg-red-bright flex items-center justify-center transition-colors"
               onClick={togglePlay}
+              whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(192, 31, 29, 0.3)" }}
+              whileTap={{ scale: 0.95 }}
+              style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)" }}
             >
               {isPlaying ? (
-                <i className="ri-pause-fill text-4xl"></i>
+                <Pause size={30} className="text-white" />
               ) : (
-                <i className="ri-play-fill text-4xl"></i>
+                <Play size={30} className="text-white ml-1" />
               )}
-            </button>
+            </motion.button>
             
-            <button 
+            <motion.button 
               className="text-gold hover:text-cream transition-colors"
               onClick={nextTrack}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
             >
-              <i className="ri-skip-forward-fill text-3xl"></i>
-            </button>
+              <SkipForward size={30} />
+            </motion.button>
           </div>
           
           {/* Track List */}
-          <div className="track-list bg-brown bg-opacity-40 rounded-lg p-4 max-h-60 overflow-y-auto">
-            <h3 className="font-display text-xl mb-4 text-gold">Tracks</h3>
+          <div className="track-list bg-brown bg-opacity-40 rounded-lg p-5 max-h-64 overflow-y-auto border border-gold border-opacity-10"
+            style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)" }}
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Music size={18} className="text-gold" />
+              <h3 className="font-display text-xl text-gold">Tracks</h3>
+            </div>
             
             <ul className="space-y-2">
               {album.tracks.map((track, index) => (
-                <li 
+                <motion.li 
                   key={track.id}
-                  className={`track-item p-2 hover:bg-brown-light rounded transition-colors flex justify-between items-center cursor-pointer ${
-                    index === currentTrackIndex ? 'bg-brown-light bg-opacity-50' : ''
+                  className={`track-item p-3 hover:bg-brown-light rounded-md transition-colors flex justify-between items-center cursor-pointer ${
+                    index === currentTrackIndex ? 'bg-brown-light border-l-4 border-gold pl-2' : ''
                   }`}
                   onClick={() => selectTrack(index)}
+                  whileHover={{ 
+                    backgroundColor: "rgba(110, 76, 54, 0.4)",
+                    x: 2
+                  }}
+                  whileTap={{ scale: 0.98 }}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="track-number w-6 text-center text-cream text-opacity-60">
-                      {track.id}
+                    {index === currentTrackIndex ? (
+                      <Disc size={16} className="text-gold animate-spin-slow" />
+                    ) : (
+                      <span className="track-number w-6 text-center text-cream text-opacity-60">
+                        {track.id}
+                      </span>
+                    )}
+                    <span className={`track-title ${index === currentTrackIndex ? 'text-gold' : ''}`}>
+                      {track.title}
                     </span>
-                    <span className="track-title">{track.title}</span>
                   </div>
-                  <span className="track-duration text-cream text-opacity-60">
+                  <span className="track-duration text-cream text-opacity-60 text-sm">
                     {track.duration}
                   </span>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </div>

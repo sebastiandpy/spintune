@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Curtains from "@/components/Curtains";
 import Header from "@/components/Header";
+import { Disc, Music, UserCircle, KeyRound, LogIn, UserPlus } from "lucide-react";
 
 // Extend the schema with validation rules
 const authSchema = insertUserSchema.extend({
