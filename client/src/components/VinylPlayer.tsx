@@ -199,11 +199,18 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
         {/* Right Column - Track List and Controls */}
         <div className="controls-container flex-1">
           <div className="album-cover-display mb-6 w-full max-w-xs mx-auto">
-            <img 
-              src={album.imageUrl} 
-              alt="Current Album Cover" 
-              className="w-full aspect-square object-cover rounded-lg shadow-xl"
-            />
+            <div className="relative group overflow-hidden rounded-lg shadow-2xl border border-gold border-opacity-20">
+              <img 
+                src={album.imageUrl} 
+                alt={`${album.title} by ${album.artist}`} 
+                className="w-full aspect-square object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-brown-dark to-transparent opacity-30"></div>
+              <div className="absolute bottom-0 left-0 right-0 p-3 text-center bg-gradient-to-t from-brown-dark to-transparent">
+                <div className="font-display text-gold">{album.title}</div>
+                <div className="text-cream text-sm">{album.artist}</div>
+              </div>
+            </div>
           </div>
           
           {/* Current Track Display */}
@@ -229,97 +236,127 @@ export default function VinylPlayer({ albumId }: VinylPlayerProps) {
           
           {/* Progress Bar */}
           <div className="progress-container mb-6 px-2">
-            <div className="w-full bg-brown-light bg-opacity-60 rounded-full h-2 overflow-hidden shadow-inner">
+            <div className="w-full bg-brown-light bg-opacity-60 rounded-full h-3 overflow-hidden shadow-inner border border-gold border-opacity-10">
               <div 
-                className="progress-bar h-full"
+                className="progress-bar h-full bg-gradient-to-r from-gold to-red-curtain transition-all duration-300"
                 style={{ 
                   width: `${progress}%`,
-                  boxShadow: "0 0 10px rgba(210, 160, 74, 0.3)" 
+                  boxShadow: "0 0 10px rgba(210, 160, 74, 0.5)" 
                 }}
               ></div>
             </div>
-            <div className="flex justify-between mt-1 text-xs text-cream text-opacity-60 px-1">
+            <div className="flex justify-between mt-2 text-xs text-cream text-opacity-80 px-1 font-medium">
               <span>0:00</span>
               <span>{currentTrack.duration}</span>
             </div>
           </div>
           
           {/* Player Controls */}
-          <div className="player-controls flex justify-center items-center gap-8 mb-8">
-            <motion.button 
-              className="text-gold hover:text-cream transition-colors"
-              onClick={previousTrack}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <SkipBack size={30} />
-            </motion.button>
+          <div className="player-controls p-4 mb-8 bg-brown-dark bg-opacity-30 rounded-xl border border-gold border-opacity-10 shadow-lg">
+            <div className="flex justify-center items-center gap-8">
+              <motion.button 
+                className="text-gold hover:text-cream transition-colors bg-brown-light bg-opacity-40 w-12 h-12 rounded-full flex items-center justify-center"
+                onClick={previousTrack}
+                whileHover={{ scale: 1.1, backgroundColor: "rgba(110, 76, 54, 0.6)" }}
+                whileTap={{ scale: 0.95 }}
+                style={{ boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)" }}
+              >
+                <SkipBack size={24} />
+              </motion.button>
+              
+              <motion.button 
+                className="w-16 h-16 rounded-full bg-red-curtain hover:bg-red-bright flex items-center justify-center transition-colors"
+                onClick={togglePlay}
+                whileHover={{ scale: 1.05, boxShadow: "0 0 20px rgba(192, 31, 29, 0.4)" }}
+                whileTap={{ scale: 0.95 }}
+                style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)" }}
+              >
+                {isPlaying ? (
+                  <Pause size={32} className="text-white" />
+                ) : (
+                  <Play size={32} className="text-white ml-1" />
+                )}
+              </motion.button>
+              
+              <motion.button 
+                className="text-gold hover:text-cream transition-colors bg-brown-light bg-opacity-40 w-12 h-12 rounded-full flex items-center justify-center"
+                onClick={nextTrack}
+                whileHover={{ scale: 1.1, backgroundColor: "rgba(110, 76, 54, 0.6)" }}
+                whileTap={{ scale: 0.95 }}
+                style={{ boxShadow: "0 2px 10px rgba(0, 0, 0, 0.2)" }}
+              >
+                <SkipForward size={24} />
+              </motion.button>
+            </div>
             
-            <motion.button 
-              className="w-16 h-16 rounded-full bg-red-curtain hover:bg-red-bright flex items-center justify-center transition-colors"
-              onClick={togglePlay}
-              whileHover={{ scale: 1.05, boxShadow: "0 0 15px rgba(192, 31, 29, 0.3)" }}
-              whileTap={{ scale: 0.95 }}
-              style={{ boxShadow: "0 5px 15px rgba(0, 0, 0, 0.3)" }}
-            >
-              {isPlaying ? (
-                <Pause size={30} className="text-white" />
-              ) : (
-                <Play size={30} className="text-white ml-1" />
-              )}
-            </motion.button>
-            
-            <motion.button 
-              className="text-gold hover:text-cream transition-colors"
-              onClick={nextTrack}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <SkipForward size={30} />
-            </motion.button>
+            {/* Current Playback Status */}
+            {isPlaying && (
+              <div className="flex justify-center items-center gap-2 mt-4">
+                <div className="w-2 h-2 bg-red-curtain rounded-full animate-pulse"></div>
+                <span className="text-sm text-cream">Now Playing</span>
+                <div className="w-2 h-2 bg-red-curtain rounded-full animate-pulse"></div>
+              </div>
+            )}
           </div>
           
           {/* Track List */}
-          <div className="track-list bg-brown bg-opacity-40 rounded-lg p-5 max-h-64 overflow-y-auto border border-gold border-opacity-10"
-            style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)" }}
+          <div className="track-list bg-brown-dark bg-opacity-40 rounded-xl p-6 max-h-72 overflow-y-auto border border-gold border-opacity-10 shadow-xl"
+            style={{ boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)" }}
           >
-            <div className="flex items-center gap-2 mb-4">
-              <Music size={18} className="text-gold" />
-              <h3 className="font-display text-xl text-gold">Tracks</h3>
+            <div className="flex items-center gap-3 mb-5 border-b border-gold border-opacity-20 pb-3">
+              <Music size={20} className="text-gold" />
+              <h3 className="font-display text-xl text-gold">Complete Tracklist</h3>
             </div>
             
-            <ul className="space-y-2">
+            {/* Track Column Headers */}
+            <div className="flex justify-between items-center mb-2 px-3 text-xs uppercase tracking-wider text-cream text-opacity-60 font-medium">
+              <span>Track</span>
+              <span>Duration</span>
+            </div>
+            
+            <ul className="space-y-1.5">
               {album.tracks.map((track, index) => (
                 <motion.li 
                   key={track.id}
-                  className={`track-item p-3 hover:bg-brown-light rounded-md transition-colors flex justify-between items-center cursor-pointer ${
-                    index === currentTrackIndex ? 'bg-brown-light border-l-4 border-gold pl-2' : ''
-                  }`}
+                  className={`track-item px-3 py-2.5 rounded-md transition-all flex justify-between items-center cursor-pointer relative overflow-hidden group
+                    ${index === currentTrackIndex ? 'bg-brown-light bg-opacity-50 shadow-md' : 'hover:bg-brown-light hover:bg-opacity-30'}`}
                   onClick={() => selectTrack(index)}
                   whileHover={{ 
-                    backgroundColor: "rgba(110, 76, 54, 0.4)",
-                    x: 2
+                    backgroundColor: "rgba(110, 76, 54, 0.3)",
+                    x: 1
                   }}
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={{ scale: 0.99 }}
                 >
-                  <div className="flex items-center gap-3">
+                  {/* Highlight for currently playing track */}
+                  {index === currentTrackIndex && (
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gold"></div>
+                  )}
+                  
+                  <div className="flex items-center gap-3 flex-1 truncate pr-2">
                     {index === currentTrackIndex ? (
-                      <Disc size={16} className="text-gold animate-spin-slow" />
+                      <Disc size={18} className="text-gold shrink-0 animate-spin-slow" />
                     ) : (
-                      <span className="track-number w-6 text-center text-cream text-opacity-60">
+                      <span className="track-number w-5 h-5 flex items-center justify-center text-center rounded-full bg-brown-light bg-opacity-30 text-cream text-opacity-70 text-xs shrink-0 group-hover:bg-gold group-hover:bg-opacity-20">
                         {track.id}
                       </span>
                     )}
-                    <span className={`track-title ${index === currentTrackIndex ? 'text-gold' : ''}`}>
+                    <span className={`track-title truncate ${index === currentTrackIndex ? 'text-gold font-medium' : 'group-hover:text-cream'}`}>
                       {track.title}
                     </span>
                   </div>
-                  <span className="track-duration text-cream text-opacity-60 text-sm">
+                  
+                  <span className="track-duration text-cream text-opacity-60 text-sm font-mono">
                     {track.duration}
                   </span>
                 </motion.li>
               ))}
             </ul>
+            
+            <div className="text-center mt-5 pt-3 border-t border-gold border-opacity-10">
+              <p className="text-xs text-cream text-opacity-50 italic">
+                {album.tracks.length} tracks · {album.artist}
+              </p>
+            </div>
           </div>
         </div>
       </div>

@@ -5,7 +5,7 @@ import Curtains from "@/components/Curtains";
 
 export default function PlayerPage() {
   const params = useParams();
-  const albumId = parseInt(params.id);
+  const albumId = params.id ? parseInt(params.id) : 1; // Default to first album if no ID provided
   
   return (
     <div className="min-h-screen text-cream font-sans overflow-x-hidden">
